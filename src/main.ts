@@ -12,9 +12,10 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:8888',
-      'https://kanastra-challenge-frontend.vercel.app/',
+      'https://kanastra-challenge-frontend.vercel.app',
     ],
-    methods: ['GET', 'POST'],
+    methods: ['GET,POST,OPTIONS,DELETE,PUT'],
+    preflightContinue: true,
     credentials: false,
   });
   await app.listen(3000);
