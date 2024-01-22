@@ -13,7 +13,7 @@ import { databaseProviders } from './database.providers';
         port: config.getOrThrow('DB_PORT'),
         username: config.getOrThrow('DB_USERNAME'),
         password: config.getOrThrow('DB_PASSWORD'),
-        database: 'postgres',
+        database: config.getOrThrow('DB_NAME'),
         autoLoadEntities: true,
         entities: ['dist/**/*.entity{.ts,.js}'],
         synchronize: true || process.env.ENVIRONMENT === 'seed',

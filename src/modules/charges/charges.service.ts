@@ -9,13 +9,14 @@ import { IChargesService } from './charges.service.interface';
 
 @Injectable()
 export class ChargesService implements IChargesService {
+  private readonly logger = new Logger('ChargesService');
+
   constructor(
     @Inject('ChargeFileRepository')
     private readonly chargeFileRepository: ChargeFileRepository,
     @Inject('ChargeRepository')
     private readonly chargeRepository: ChargeRepository,
     private emailService: EmailService,
-    private readonly logger = new Logger(ChargesService.name),
   ) {}
 
   public async createCharges(file: Express.Multer.File) {
