@@ -15,7 +15,7 @@ async function bootstrap() {
       'https://kanastra-challenge-frontend.vercel.app/',
     ],
     methods: ['GET', 'POST'],
-    credentials: true,
+    credentials: false,
   });
   await app.listen(3000);
 }
