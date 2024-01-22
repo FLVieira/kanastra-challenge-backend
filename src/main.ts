@@ -7,7 +7,10 @@ async function bootstrap() {
   app.setGlobalPrefix('/api/v1');
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors({
-    origin: ['http://localhost:8888', 'https://app.example.com'],
+    origin: [
+      'http://localhost:8888',
+      'https://kanastra-challenge-frontend.vercel.app/',
+    ],
     methods: ['GET', 'POST'],
     credentials: true,
   });
