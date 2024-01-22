@@ -1,0 +1,31 @@
+<p>Olá <%= name %>,</p>
+<p>
+  Esperamos que esteja bem! Estamos entrando em contato para lembrá-lo sobre um pagamento pendente referente ao serviço prestado pela nossa empresa.
+</p>
+
+<p>O detalhe do seu boleto é o seguinte:</p>
+<ul>
+  <li>Valor: R$<%= amount %></li>
+  <li>Data de Vencimento: <%= dueDate %></li>
+</ul>
+
+<p>Para realizar o pagamento, por favor, clique no link abaixo:</p>
+<p>
+  <a href="<%= paymentUrl %>">Pagar Boleto</a>
+</p>
+
+<p>
+  Caso tenha problemas para clicar no botão, copie e cole o seguinte URL no seu navegador:
+</p>
+<p>
+  <a href="<%= paymentUrl %>"><%= paymentUrl %></a>
+</p>
+
+<p>
+  Se já realizou este pagamento, por favor desconsidere esta mensagem. Agradecemos a sua atenção e preferência.
+</p>
+
+<p>
+  Atenciosamente,<br>
+  Equipe Nice App
+</p>

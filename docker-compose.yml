@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: kanastra-challenge-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - postgres
+    restart: always
+
+  postgres:
+    container_name: kanastra-challenge-db
+    image: 'postgres:13'
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:
+      - kanastra-challenge-db:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  kanastra-challenge-db:
