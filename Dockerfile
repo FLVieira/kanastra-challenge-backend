@@ -1,26 +1,20 @@
-# Use a Node.js base image
-FROM node:16-alpine
+# Base image
+FROM node:18
 
-# Create a working directory for the application
-WORKDIR /app
+# Create app directory
+WORKDIR /usr/src/app
 
-# Copy package.json and package-lock.json to the working directory
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install app dependencies
+RUN yarn
 
-# Copy source files to the working directory
-COPY src ./src
-COPY tsconfig*.json ./
-COPY nest-cli.json ./
-COPY ormconfig.json ./
+# Bundle app source
+COPY . .
 
-# Compile TypeScript to JavaScript
-RUN npm run build
+# Creates a "dist" folder with the production build
+RUN yarn build
 
-# Expose the application port
-EXPOSE 3000
-
-# Start the application
-CMD ["npm", "start"]
+# Start the server using the production build
+CMD [ "node", "dist/main.js" ]
