@@ -13,7 +13,7 @@ export const getDataSourceProperties = (
     database: config.getOrThrow('DB_NAME'),
     entities: ['dist/**/*.entity{.ts,.js}'],
     synchronize: true,
-    ssl: true,
+    ssl: config.get('NODE_ENV') === 'production',
   };
 };
 

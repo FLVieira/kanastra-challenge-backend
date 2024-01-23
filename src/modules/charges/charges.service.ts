@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
-import * as csvParser from 'csv-parser';
+import csvParser from 'csv-parser';
 import { Readable } from 'stream';
 import { ChargeFileRepository } from '../../domain/repositories/ChargeFileRepository';
 import { ChargeRepository } from '../../domain/repositories/ChargeRepository';
@@ -32,35 +32,38 @@ export class ChargesService implements IChargesService {
       'debtId',
     ];
 
-    stream
-      .pipe(csvParser())
-      .on('data', async (data) => {
-        requiredKeys.forEach((key) => {
-          if (!data[key]) {
-            throw new Error('Invalid data');
-          }
-        });
+    return new Promise<void>((resolve, reject) => {
+      stream
+        .pipe(csvParser())
+        .on('data', async (data) => {
+          requiredKeys.forEach((key) => {
+            if (!data[key]) {
+              throw new Error('Invalid data');
+            }
+          });
 
-        const charge = { ...data };
-        await this.chargeRepository.saveCharge(charge);
-      })
-      .on('error', (error) => {
-        this.logger.log(
-          'Error reading charges from file ',
-          file.originalname,
-          ', the following error occurred: ',
-          JSON.stringify(error),
-        );
-        throw error;
-      })
-      .on('end', async () => {
-        await this.chargeFileRepository.saveChargeFile(file);
-        this.logger.log(
-          'All charges from ',
-          file.originalname,
-          ' wore successfully saved',
-        );
-      });
+          const charge = { ...data };
+          await this.chargeRepository.saveCharge(charge);
+        })
+        .on('error', (error) => {
+          this.logger.log(
+            'Error reading charges from file ',
+            file.originalname,
+            ', the following error occurred: ',
+            JSON.stringify(error),
+          );
+          reject(error);
+        })
+        .on('end', async () => {
+          await this.chargeFileRepository.saveChargeFile(file);
+          this.logger.log(
+            'All charges from ',
+            file.originalname,
+            ' wore successfully saved',
+          );
+          resolve();
+        });
+    });
   }
 
   public async getChargesFiles() {
