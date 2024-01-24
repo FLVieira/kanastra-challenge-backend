@@ -1,6 +1,6 @@
 name: Test the application
  
-on: [commit]
+on: [push]
  
 env:
   IMAGE_TAG: kanastra_challenge_backend
