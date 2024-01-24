@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ChargesService } from 'src/modules/charges/charges.service';
-import { IChargesService } from 'src/modules/charges/charges.service.interface';
+import { ChargesService } from '../../../../modules/charges/charges.service';
+import { IChargesService } from '../../../../modules/charges/charges.service.interface';
 
 @Injectable()
 export class CreateChargeFileUseCase {

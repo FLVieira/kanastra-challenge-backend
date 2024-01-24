@@ -1,0 +1,20 @@
+name: Test the application
+ 
+on: [commit]
+ 
+env:
+  IMAGE_TAG: kanastra_challenge_backend
+ 
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+ 
+      - name: Build the Docker image
+        run: docker build -t $IMAGE_TAG --target=create-build .
+ 
+      - name: Run tests
+        run: docker run $IMAGE_TAG sh -c 'npm run test'

@@ -11,8 +11,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CreateChargeFileUseCase } from 'src/domain/useCases/charges/create-charge-file-use-case/CreateChargeFileUseCase';
-import { GetChargesFilesUseCase } from 'src/domain/useCases/charges/get-charges-files-use-case/GetChargesFilesUseCase';
+import { CreateChargeFileUseCase } from '../../domain/useCases/charges/create-charge-file-use-case/CreateChargeFileUseCase';
+import { GetChargesFilesUseCase } from '../../domain/useCases/charges/get-charges-files-use-case/GetChargesFilesUseCase';
 
 @Controller('charges')
 export class ChargesController {
